@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mentor Dashboard | SkillSpring</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    .site-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .site-title {
+      font-size: 24px;
+      color: #333;
+      margin: 0;
+    }
+
+    .logout-btn {
+      background: #e53935;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 14px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: #c62828;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 20 20px;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .dash-box {
+      background: #dddce0;
+      padding: 20px 20px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dash-box:hover {
+      background: #ddd7de;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-left">
+      <img src="logo.png" alt="SkillSpring Logo" class="logo" />
+      <h1 class="site-title">SkillSpring</h1>
+    </div>
+    <button class="logout-btn" onclick="logout()">🔓 Logout</button>
+  </header>
+
+  <div class="container">
+    <h2>👩‍🏫 Welcome, <span id="mentor-name">Mentor</span></h2>
+    <div class="dashboard-grid">
+      <div class="dash-box" onclick="goTo('mentor_schedule.html')">📅 Schedule</div>
+      <div class="dash-box" onclick="goTo('mentor_slots.html')">⏰ Slots</div>
+      <div class="dash-box" onclick="goTo('mentor_earnings.html')">💰 Earnings</div>
+      <div class="dash-box" onclick="goTo('mentor_review.html')">✍️ Reviews</div>
+      <div class="dash-box" onclick="goTo('mentor_profile.html')">👤 Profile</div>
+    </div>
+  </div>
+
+  <script>
+    // Set mentor name from localStorage
+    document.getElementById("mentor-name").textContent =
+      localStorage.getItem("userName") || "Mentor";
+
+    // Navigate to selected page
+    function goTo(page) {
+      window.location.href = page;
+    }
+
+    // Logout and redirect to login/home
+    function logout() {
+      localStorage.clear(); // or selectively remove keys
+      window.location.href = "index.html"; // redirect to login or landing page
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resume Builder | SkillSpring</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <img src="logo.png" alt="SkillSpring Logo" class="logo" />
+    <h1 class="site-title">SkillSpring</h1>
+  </header>
+
+  <div class="container">
+    <h2>📄 Build Your Resume</h2>
+    <form id="resume-form">
+      <input type="text" id="name" placeholder="Full Name" required />
+      <input type="number" id="age" placeholder="Age" required />
+      <input type="text" id="college" placeholder="College Name" required />
+      <input type="text" id="experience" placeholder="Experience (e.g. 6 months)" />
+      <input type="text" id="internship" placeholder="Internships (if any)" />
+      <input type="text" id="projects" placeholder="Projects (comma-separated)" />
+      <input type="text" id="skills" placeholder="Skills (comma-separated)" />
+      <button type="submit">Generate Resume</button>
+    </form>
+
+    <div id="resume-output" class="hidden">
+      <h3>📄 Your Resume</h3>
+      <pre id="resume-text"></pre>
+      <button onclick="downloadResume()">⬇️ Download</button>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("resume-form");
+    const output = document.getElementById("resume-output");
+    const resumeText = document.getElementById("resume-text");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const age = document.getElementById("age").value;
+      const college = document.getElementById("college").value;
+      const experience = document.getElementById("experience").value || "N/A";
+      const internship = document.getElementById("internship").value || "N/A";
+      const projects = document.getElementById("projects").value || "N/A";
+      const skills = document.getElementById("skills").value || "N/A";
+
+      const resume = `
+Name: ${name}
+Age: ${age}
+College: ${college}
+Experience: ${experience}
+Internships: ${internship}
+Projects: ${projects}
+Skills: ${skills}
+      `.trim();
+
+      resumeText.textContent = resume;
+      output.classList.remove("hidden");
+    });
+
+    function downloadResume() {
+      const blob = new Blob([resumeText.textContent], { type: "text/plain" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "resume.txt";
+      link.click();
+    }
+  </script>
+</body>
+</html>

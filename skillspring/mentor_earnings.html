@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Earnings | SkillSpring</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .box {
+      background: #fff3e0;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    .highlight {
+      font-weight: bold;
+      color: #d84315;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #388e3c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>💰 Earnings & Monthly Target</h2>
+
+    <div class="box">
+      <p>💸 Total Earnings: ₹<span id="earnings">5000</span></p>
+      <p>🎯 Monthly Target: ₹<span id="target">10000</span></p>
+    </div>
+
+    <div class="box">
+      <p>📅 <span id="prev-month-label"></span> Earnings: ₹<span id="prev-earnings" class="highlight">4200</span></p>
+    </div>
+
+    <button onclick="goBack()">⬅️ Back to Dashboard</button>
+  </div>
+
+  <script>
+    function goBack() {
+      window.location.href = "mentor_dashboard.html";
+    }
+
+    // Set previous month label dynamically
+    const prevMonthLabel = document.getElementById("prev-month-label");
+    const now = new Date();
+    const prevMonth = new Date(now.getFullYear(), now.getMonth() - 1);
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"];
+    prevMonthLabel.textContent = `${monthNames[prevMonth.getMonth()]} ${prevMonth.getFullYear()}`;
+  </script>
+</body>
+</html>

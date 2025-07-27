@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mentor Reviews | SkillSpring</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .box {
+      background: #f3e5f5;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    .box hr { margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>✍️ Student Reviews</h2>
+    <form id="review-form">
+      <input type="text" id="student-name" placeholder="Student Name" required />
+      <textarea id="feedback" placeholder="Write your feedback..." required></textarea>
+      <label>Rating:
+        <select id="rating">
+          <option value="⭐">⭐</option>
+          <option value="⭐⭐">⭐⭐</option>
+          <option value="⭐⭐⭐">⭐⭐⭐</option>
+          <option value="⭐⭐⭐⭐">⭐⭐⭐⭐</option>
+          <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐</option>
+        </select>
+      </label>
+      <button type="submit">Submit Review</button>
+    </form>
+    <div id="review-list" class="box"></div>
+    <button onclick="goBack()">⬅️ Back to Dashboard</button>
+  </div>
+
+  <script>
+    function goBack() {
+      window.location.href = "mentor_dashboard.html";
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const reviewForm = document.getElementById("review-form");
+      const reviewList = document.getElementById("review-list");
+
+      reviewForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const name = document.getElementById("student-name").value;
+        const feedback = document.getElementById("feedback").value;
+        const rating = document.getElementById("rating").value;
+
+        const review = document.createElement("div");
+        review.innerHTML = `<p><strong>${name}</strong> – ${rating}</p><p>${feedback}</p><hr>`;
+        reviewList.prepend(review);
+
+        reviewForm.reset();
+      });
+    });
+  </script>
+</body>
+</html>

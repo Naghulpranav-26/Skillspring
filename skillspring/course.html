@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Courses | SkillSpring</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+    .course-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+    .course-card {
+      background: #fff3e0;
+      padding: 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: center;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s;
+    }
+    .course-card:hover {
+      transform: scale(1.05);
+      background: #ffe0b2;
+    }
+    .course-box {
+      background: #e3f2fd;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 30px;
+      display: none;
+    }
+    .course-box ul {
+      padding-left: 20px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: linear-gradient(to right, #4caf50, #2e7d32);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: linear-gradient(to right, #43a047, #1b5e20);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📚 Select a Course</h2>
+    <div class="course-list" id="course-list"></div>
+
+    <div class="course-box" id="course-box">
+      <h3 id="course-title">Course Overview</h3>
+      <p id="course-description">Description will appear here.</p>
+      <h4>Topics Covered:</h4>
+      <ul id="course-topics"></ul>
+      <button onclick="startTechTrail()">🚀 Tech Trails</button>
+    </div>
+  </div>
+
+  <script>
+    const courseData = {
+      DSA: {
+        description: "Master Data Structures and Algorithms for coding interviews and problem solving.",
+        topics: ["Arrays", "Linked Lists", "Stacks & Queues", "Trees", "Sorting & Searching"]
+      },
+      OOPs: {
+        description: "Understand Object-Oriented Programming principles and design patterns.",
+        topics: ["Classes & Objects", "Inheritance", "Polymorphism", "Encapsulation", "Abstraction"]
+      },
+      Python: {
+        description: "Learn Python for scripting, automation, and backend development.",
+        topics: ["Syntax", "Data Types", "Functions", "Loops", "Modules"]
+      },
+      Java: {
+        description: "Build robust applications using Java and its powerful libraries.",
+        topics: ["JVM & JDK", "OOP in Java", "Collections", "Exception Handling", "Multithreading"]
+      },
+      "Problem Solving": {
+        description: "Sharpen your logical thinking and algorithmic skills.",
+        topics: ["Greedy Algorithms", "Recursion", "Dynamic Programming", "Backtracking", "Bit Manipulation"]
+      },
+      C: {
+        description: "Learn the fundamentals of programming with the C language.",
+        topics: ["Pointers", "Memory Management", "Structures", "Loops & Conditions", "Functions"]
+      }
+    };
+
+    const courseList = document.getElementById("course-list");
+    const courseBox = document.getElementById("course-box");
+    const courseTitle = document.getElementById("course-title");
+    const courseDesc = document.getElementById("course-description");
+    const courseTopics = document.getElementById("course-topics");
+
+    let selectedCourse = "";
+
+    Object.keys(courseData).forEach(course => {
+      const card = document.createElement("div");
+      card.className = "course-card";
+      card.textContent = course;
+      card.onclick = () => showCourse(course);
+      courseList.appendChild(card);
+    });
+
+    function showCourse(course) {
+      selectedCourse = course;
+      const data = courseData[course];
+      courseTitle.textContent = `${course} Overview`;
+      courseDesc.textContent = data.description;
+      courseTopics.innerHTML = "";
+      data.topics.forEach(topic => {
+        const li = document.createElement("li");
+        li.textContent = topic;
+        courseTopics.appendChild(li);
+      });
+      courseBox.style.display = "block";
+    }
+
+    function startTechTrail() {
+      if (!selectedCourse) return;
+      const confirmStart = confirm(`Ready to begin your Tech Trail in ${selectedCourse}?`);
+      if (confirmStart) {
+        localStorage.setItem("selectedCourse", selectedCourse);
+        window.location.href = "tech_trails.html";
+      }
+    }
+  </script>
+</body>
+</html>

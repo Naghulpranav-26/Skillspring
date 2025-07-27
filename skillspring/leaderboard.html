@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Leaderboard | SkillSpring</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <img src="logo.png" alt="SkillSpring Logo" class="logo" />
+    <h1 class="site-title">SkillSpring</h1>
+  </header>
+
+  <div class="container">
+    <h2>🏆 Leaderboard - <span id="course-name"></span></h2>
+
+    <div class="leaderboard-section">
+      <h3>Top Performers</h3>
+      <ol id="top-list"></ol>
+    </div>
+
+    <div class="leaderboard-section">
+      <h3>Your Stats</h3>
+      <p>Rank: <span id="your-rank">-</span></p>
+      <p>Score: <span id="your-score">-</span></p>
+      <p>Streak: <span id="your-streak">-</span> 🔥</p>
+      <p id="internship-status"></p>
+    </div>
+
+    <a href="internship.html">🎓 Check Internship Options</a>
+  </div>
+
+  <script>
+    const course = localStorage.getItem("selectedCourse") || "Course";
+    document.getElementById("course-name").textContent = course;
+
+    const topList = document.getElementById("top-list");
+    const yourRankEl = document.getElementById("your-rank");
+    const yourScoreEl = document.getElementById("your-score");
+    const yourStreakEl = document.getElementById("your-streak");
+    const internshipStatus = document.getElementById("internship-status");
+
+    const userName = localStorage.getItem("userName") || "You";
+    const score = parseInt(localStorage.getItem("quizScore")) || 0;
+
+    const today = new Date();
+    const streakKey = `streaks-${course}-${today.getMonth()}-${today.getFullYear()}`;
+    const streakData = JSON.parse(localStorage.getItem(streakKey)) || {};
+    const streakCount = Object.values(streakData).filter(v => v === "🔥").length;
+
+    const leaderboard = [
+      { name: "Aarav", score: 95, streak: 30 },
+      { name: "Diya", score: 88, streak: 28 },
+      { name: "Ravi", score: 75, streak: 25 },
+      { name: userName, score: score, streak: streakCount },
+      { name: "Sneha", score: 35, streak: 20 }
+    ];
+
+    leaderboard.sort((a, b) => b.score - a.score);
+
+    leaderboard.slice(0, 3).forEach(user => {
+      const li = document.createElement("li");
+      li.textContent = `${user.name} - ${user.score} pts 🔥 ${user.streak}`;
+      topList.appendChild(li);
+    });
+
+    const currentUser = leaderboard.find(u => u.name === userName);
+    const rank = leaderboard.findIndex(u => u.name === userName) + 1;
+
+    yourRankEl.textContent = rank;
+    yourScoreEl.textContent = currentUser.score;
+    yourStreakEl.textContent = currentUser.streak;
+
+    if (currentUser.streak >= 30 && currentUser.score >= 30) {
+      internshipStatus.innerHTML = `<span class="eligible">✅ You are eligible for a free internship!</span>`;
+    } else {
+      const needed = [];
+      if (currentUser.streak < 30) needed.push(`+${30 - currentUser.streak}🔥`);
+      if (currentUser.score < 30) needed.push(`+${30 - currentUser.score} pts`);
+      internshipStatus.innerHTML = `<span class="not-eligible">🚧 Not eligible yet. You need ${needed.join(" and ")} or choose to pay.</span>`;
+    }
+  </script>
+</body>
+</html>

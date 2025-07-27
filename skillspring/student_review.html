@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Reviews | SkillSpring</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <img src="logo.png" alt="SkillSpring Logo" class="logo" />
+    <h1 class="site-title">SkillSpring</h1>
+  </header>
+
+  <div class="container">
+    <h2>⭐ Student Reviews</h2>
+    <form id="review-form">
+      <input type="text" id="student-name" placeholder="Student Name" required />
+      <textarea id="feedback" placeholder="Write your review..." required></textarea>
+      <label for="rating">Rating:</label>
+      <select id="rating">
+        <option>⭐</option>
+        <option>⭐⭐</option>
+        <option>⭐⭐⭐</option>
+        <option>⭐⭐⭐⭐</option>
+        <option>⭐⭐⭐⭐⭐</option>
+      </select>
+      <button type="submit">Submit Review</button>
+    </form>
+    <ul id="review-list"></ul>
+    <a href="mentor_dashboard.html">← Back to Dashboard</a>
+  </div>
+
+  <script>
+    const reviewForm = document.getElementById("review-form");
+    const reviewList = document.getElementById("review-list");
+
+    reviewForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("student-name").value;
+      const feedback = document.getElementById("feedback").value;
+      const rating = document.getElementById("rating").value;
+
+      const li = document.createElement("li");
+      li.textContent = `${name}: ${feedback} ${rating}`;
+      reviewList.appendChild(li);
+
+      reviewForm.reset();
+    });
+  </script>
+</body>
+</html>

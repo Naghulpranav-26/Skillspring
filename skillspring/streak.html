@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Streaks | SkillSpring</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <img src="logo.png" alt="SkillSpring Logo" class="logo" />
+    <h1 class="site-title">SkillSpring</h1>
+  </header>
+
+  <div class="container">
+    <h2>🔥 Your Streaks for <span id="course-name"></span></h2>
+    <div id="calendar" class="calendar-grid"></div>
+    <p id="streak-info"></p>
+    <a href="leaderboard.html">🏆 Go to Leaderboard</a>
+  </div>
+
+  <script>
+    const course = localStorage.getItem("selectedCourse") || "Course";
+    document.getElementById("course-name").textContent = course;
+
+    const calendar = document.getElementById("calendar");
+    const streakInfo = document.getElementById("streak-info");
+
+    const today = new Date();
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    const streakKey = `streaks-${course}-${currentMonth}-${currentYear}`;
+    const streakData = JSON.parse(localStorage.getItem(streakKey)) || {};
+
+    let streakCount = 0;
+    for (let day = 1; day <= daysInMonth; day++) {
+      const box = document.createElement("div");
+      const emoji = streakData[day] || "⬜";
+      if (emoji === "🔥") streakCount++;
+      box.textContent = `${day} ${emoji}`;
+      box.className = "calendar-day";
+      calendar.appendChild(box);
+    }
+
+    streakInfo.textContent = `🔥 Current Streak: ${streakCount} day(s)`;
+  </script>
+</body>
+</html>

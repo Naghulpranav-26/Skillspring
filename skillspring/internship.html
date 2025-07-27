@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Internships | SkillSpring</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <img src="logo.png" alt="SkillSpring Logo" class="logo" />
+    <h1 class="site-title">SkillSpring</h1>
+  </header>
+
+  <div class="container">
+    <h2>🎓 Internship Opportunities</h2>
+
+    <div id="eligibility-status"></div>
+
+    <div class="internship-list">
+      <div class="internship-box">
+        <h3>Frontend Developer Intern</h3>
+        <p>Company: CodeSpark</p>
+        <p>Duration: 3 months</p>
+        <button class="apply-btn">Apply</button>
+      </div>
+      <div class="internship-box">
+        <h3>React.js Intern</h3>
+        <p>Company: DevNest</p>
+        <p>Duration: 2 months</p>
+        <button class="apply-btn">Apply</button>
+      </div>
+      <div class="internship-box">
+        <h3>Python + Django Intern</h3>
+        <p>Company: ByteBridge</p>
+        <p>Duration: 4 months</p>
+        <button class="apply-btn">Apply</button>
+      </div>
+    </div>
+
+    <div id="payment-option" class="hidden">
+      <p>💳 You can also <strong>pay ₹499</strong> to unlock internship access immediately.</p>
+      <button onclick="alert('Redirecting to payment gateway...')">Pay Now</button>
+    </div>
+
+    <a href="resume.html">📄 Build Your Resume</a>
+  </div>
+
+  <script>
+    const course = localStorage.getItem("selectedCourse") || "Course";
+    const score = parseInt(localStorage.getItem("quizScore")) || 0;
+    const today = new Date();
+    const streakKey = `streaks-${course}-${today.getMonth()}-${today.getFullYear()}`;
+    const streakData = JSON.parse(localStorage.getItem(streakKey)) || {};
+    const streakCount = Object.values(streakData).filter(v => v === "🔥").length;
+
+    const eligibilityStatus = document.getElementById("eligibility-status");
+    const paymentOption = document.getElementById("payment-option");
+    const applyButtons = document.querySelectorAll(".apply-btn");
+
+    if (streakCount >= 50 && score >= 50) {
+      eligibilityStatus.innerHTML = `<p class="eligible">✅ You are eligible for a free internship!</p>`;
+    } else {
+      eligibilityStatus.innerHTML = `<p class="not-eligible">❌ You are not eligible for a free internship yet.</p>`;
+      paymentOption.classList.remove("hidden");
+      applyButtons.forEach(btn => btn.disabled = true);
+    }
+
+    applyButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        alert("🎉 Application submitted successfully!");
+      });
+    });
+  </script>
+</body>
+</html>

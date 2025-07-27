@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Slots Booked | SkillSpring</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <img src="logo.png" alt="SkillSpring Logo" class="logo" />
+    <h1 class="site-title">SkillSpring</h1>
+  </header>
+
+  <div class="container">
+    <h2>📋 Slots Booked Today</h2>
+    <ul id="booked-slots"></ul>
+    <a href="mentor_dashboard.html">← Back to Dashboard</a>
+  </div>
+
+  <script>
+    const bookedSlots = [
+      { time: "5:00 PM", student: "Gokul" },
+      { time: "6:00 AM", student: "Lava Kishore" },
+      { time: "7:00 PM", student: "Loga priya" },
+      { time: "8:00 PM", student: "Haresh" }
+    ];
+
+    const list = document.getElementById("booked-slots");
+    bookedSlots.forEach(slot => {
+      const li = document.createElement("li");
+      li.textContent = `${slot.time} - ${slot.student}`;
+      list.appendChild(li);
+    });
+  </script>
+</body>
+</html>

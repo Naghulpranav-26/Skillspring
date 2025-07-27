@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Available Slots | SkillSpring</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .slot {
+      background: #e8f5e9;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .slot button {
+      background: #4caf50;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .slot button:hover {
+      background: #388e3c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🟢 Available Slots</h2>
+    <div id="slot-list"></div>
+    <button onclick="goBack()">⬅️ Back to Dashboard</button>
+  </div>
+
+  <script>
+    const availableSlots = [
+      { time: "4:00 PM", student: "Perumal" },
+      { time: "10:00 AM", student: "Ram" },
+      { time: "7:00 PM", student: "Gokul" },
+      { time: "5:30 PM", student: "Krishna" }
+    ];
+
+    const list = document.getElementById("slot-list");
+    availableSlots.forEach(slot => {
+      const div = document.createElement("div");
+      div.className = "slot";
+      div.innerHTML = `<span><strong>${slot.time}</strong> - ${slot.student}</span>
+                       <button onclick="bookSlot(this)">Book</button>`;
+      list.appendChild(div);
+    });
+
+    function bookSlot(btn) {
+      btn.textContent = "Booked";
+      btn.disabled = true;
+    }
+
+    function goBack() {
+      window.location.href = "mentor_dashboard.html";
+    }
+  </script>
+</body>
+</html>

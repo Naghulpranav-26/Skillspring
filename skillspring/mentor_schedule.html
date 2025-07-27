@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Today's Schedule | SkillSpring</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .slot {
+      background: #e1f5fe;
+      padding: 20px;
+      margin: 10px 0;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .join-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #039be5;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .join-btn:hover {
+      background: #0288d1;
+    }
+
+    button.back {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button.back:hover {
+      background: #388e3c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📅 Today's Booked Slots</h2>
+    <div id="schedule-list"></div>
+    <button class="back" onclick="goBack()">⬅️ Back to Dashboard</button>
+  </div>
+
+  <script>
+    function goBack() {
+      window.location.href = "mentor_dashboard.html";
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const todaySlots = [
+        { time: "10:00 AM", student: "Walter", link: "https://meet.google.com/walter123" },
+        { time: "12:00 PM", student: "Jesse Pinkman", link: "https://meet.google.com/jesse456" },
+        { time: "2:00 PM", student: "Gus", link: "https://meet.google.com/gus789" },
+        { time: "6:00 PM", student: "Hank", link: "https://meet.google.com/hank321" }
+      ];
+
+      const list = document.getElementById("schedule-list");
+      todaySlots.forEach(slot => {
+        const div = document.createElement("div");
+        div.className = "slot";
+
+        const info = document.createElement("div");
+        info.textContent = `${slot.time} with ${slot.student}`;
+
+        const button = document.createElement("button");
+        button.className = "join-btn";
+        button.textContent = "Join GMeet";
+        button.onclick = () => window.open(slot.link, "_blank");
+
+        div.appendChild(info);
+        div.appendChild(button);
+        list.appendChild(div);
+      });
+    });
+  </script>
+</body>
+</html>
